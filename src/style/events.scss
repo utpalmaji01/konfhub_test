@@ -1,11 +1,12 @@
+@import "./general.scss";
 .event-container {
   .card.heading-card {
-    background-color: #ffdba6;
+    background-color: $secondary;
     padding: 16px 24px 32px;
     border: none;
     position: relative;
     .heading-card-text {
-      color: #572148;
+      color: $primary;
       text-align: left;
     }
     .event-right-img-container {
@@ -62,7 +63,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        background-color: #fff;
+        background-color: $color-white;
       }
     }
   }

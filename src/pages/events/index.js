@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Logo from "../../assets/logo.png";
 import HeadingCardImg from "../../assets/Group_3840.png";
 import EventsText from "../../assets/Group_3324.png";
-import SearchIcon from "../../assets/searchicon.png";
-import SelectArrow from "../../assets/selectArrow.png";
+import Filters from "../../components/filters";
 import EventCard from "../../components/eventCard";
 import Axios from "axios";
 import "../../style/events.scss";
 // import Loader from "../../components/loader";
+
 const Events = () => {
   const [eventFilters, setEventFilters] = useState({
     search: "",
@@ -20,6 +20,7 @@ const Events = () => {
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalEvent, setTotalEvent] = useState(0);
+
   useEffect(() => {
     getEventData();
   }, [eventFilters, pageDetails]);
@@ -68,6 +69,7 @@ const Events = () => {
         console.log(err);
       });
   };
+
   const loadMoreEvents = () => {
     if (totalEvent > eventData.length) {
       setPageDetails({
@@ -76,6 +78,7 @@ const Events = () => {
       });
     }
   };
+
   const setFiltersvalue = (params) => {
     setEventFilters({
       ...eventFilters,
@@ -86,6 +89,7 @@ const Events = () => {
       offset: 0,
     });
   };
+
   return (
     <>
       <div className="container py-3 event-container">
@@ -120,49 +124,10 @@ const Events = () => {
               </div>
               <div className="card filter-card border-radius-15">
                 <div className="card-body">
-                  <div className="row">
-                    <div className="col-6">
-                      <label className="fw-bold mb-1">Search</label>
-                      <div className="input-with-button">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search Events"
-                          value={eventFilters.search}
-                          onChange={(e) =>
-                            setFiltersvalue({
-                              search: e.target.value,
-                            })
-                          }
-                        />
-                        <div className="btn btn-sm search-button">
-                          <img
-                            src={SearchIcon}
-                            alt=""
-                            className="search-icon"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <label className="fw-bold mb-1">Past Events</label>
-                      <select
-                        className="form-select"
-                        value={eventFilters.pastEvents}
-                        onChange={(e) =>
-                          setFiltersvalue({
-                            pastEvents: e.target.value,
-                          })
-                        }
-                        style={{
-                          backgroundImage: `url(${SelectArrow})`,
-                        }}
-                      >
-                        <option value={true}>True</option>
-                        <option value={false}>False</option>
-                      </select>
-                    </div>
-                  </div>
+                  <Filters
+                    eventFilters={eventFilters}
+                    setFiltersvalue={setFiltersvalue}
+                  />
                 </div>
               </div>
             </div>
